@@ -82,13 +82,13 @@ const Navbar = () => {
                 </MenuLink>
               </MenuItem>
               <MenuItem>
-                <MenuLink onClick={closeMenu} to="/">
+                <MenuLink onClick={closeMenu} to="/your-cart">
                   Your Cart
                 </MenuLink>
               </MenuItem>
               <MenuItemBtn>
                 {currentUser ? (
-                  <MenuLink to="/menu">Order Now</MenuLink>
+                  <div />
                 ) : (
                   <MenuLinkBtn to="/login">
                     <Button primary>Sign In / Sign Up</Button>

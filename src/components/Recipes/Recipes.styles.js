@@ -30,7 +30,8 @@ export const RecipeTitle = styled.h2`
 
 export const RecipeContentContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
@@ -57,9 +58,10 @@ export const RecipeBtn = styled(Link)`
 
 export const RecipeCardWrapper = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
-  margin-top: 6rem;
+  margin-top: 1rem;
   flex-direction: column;
 
   @media only screen and (min-width: 1800px) {
@@ -229,31 +231,42 @@ export const RecipeCardSection = styled.div`
   }
 `;
 
+export const TestAja = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
 export const RecipeSmallCards = styled.div`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
   @media only screen and (min-width: 1200px) {
-    margin-left: 2rem;
+    margin-left: 0.5rem;
   }
   @media only screen and (min-width: 1500px) {
-    margin-left: 3.5rem;
+    margin-left: 1.5rem;
   }
 `;
 
 export const RecipeCard = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
-  width: 500px;
-  height: 130px;
+  width: 400px;
+  height: 120px;
   background: #ffffff;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
+  margin-right: 1rem;
+  margin-left: 1rem;
   transition: all 0.5s ease;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
   cursor: pointer;
 
   &:hover {
@@ -304,11 +317,11 @@ export const RecipeCardContent = styled.div`
 `;
 
 export const RecipeCardHeading = styled.h3`
-  font-size: 2.4rem;
+  font-size: 1.6rem;
   font-weight: 400;
 
   @media only screen and (max-width: 700px) {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 `;
 
@@ -324,15 +337,15 @@ export const RecipeCardItems = styled.div`
   align-items: flex-start;
   text-align: center;
   &:not(:last-child) {
-    margin-right: 2.5rem;
+    margin-right: 1rem;
   }
 `;
 
 export const RecipeCardTitle = styled.h4`
-  font-size: 1.4rem;
+  font-size: 1rem;
 
   @media only screen and (max-width: 700px) {
-    font-size: 1.2rem;
+    font-size: 0.8rem;
   }
 `;
 
@@ -371,7 +384,7 @@ export const RecipeFeatureImg = styled.div`
 `;
 
 export const Img = styled.img`
-  height: 10rem;
+  height: 7rem;
   object-fit: contain;
   transition: all 0.5s ease;
 

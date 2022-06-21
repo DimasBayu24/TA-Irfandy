@@ -6,3 +6,4 @@ export { default as Recipes } from "./Recipes/Recipes";
 export { default as Meals } from "./Meals/Meals";
 export { default as Footer } from ".//Footer/Footer";
 export { default as Menu } from ".//TodayMenu/TodayMenu";
+export { default as YourCarts } from ".//YourCart/YourCart";

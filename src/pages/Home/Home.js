@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Works, Welcome, Recipes, Meals } from "../../components";
 import {
   HeroContainer,
@@ -13,6 +14,10 @@ import {
 import Navbar from "../../components/Navbar/Navbar";
 import { Button } from "../../Globalstyles";
 function Home() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+    console.log("apa hayo nilainya hihih", user);
+  }, []);
   return (
     <div>
       <HeroContainerHome>

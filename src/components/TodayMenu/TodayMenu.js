@@ -98,7 +98,7 @@ const TodayMenu = () => {
         hari = "Kamis";
         break;
       case 5:
-        hari = "Jum'at";
+        hari = "Jumat";
         break;
       case 6:
         hari = "Sabtu";

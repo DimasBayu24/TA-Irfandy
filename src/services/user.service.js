@@ -19,6 +19,12 @@ const getOrder = () => {
   return axios.get(API_URL + "products", { withCredentials: true });
 };
 
+const getAllOrderById = (id) => {
+  return axios.get(API_URL + `orders_by_id?user_id=${id}`, {
+    withCredentials: true,
+  });
+};
+
 const orderFood = (id, price, quantity) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const user_id = user.ID;
@@ -49,6 +55,7 @@ const getAdminBoard = () => {
 
 const UserService = {
   getProducts,
+  getAllOrderById,
   getProductByDay,
   getOrder,
   getPublicContent,

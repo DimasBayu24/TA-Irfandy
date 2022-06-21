@@ -39,6 +39,7 @@ import {
   RecipeCardText,
   RecipeImg,
   Img,
+  TestAja,
 } from "./Recipes.styles";
 import Modal from "react-modal";
 const customStyles = {
@@ -74,21 +75,18 @@ const Recipes = () => {
   //     setIsOpen(false);
   //   }
   // const [currentUser, setCurrentUser] = useState(undefined);
+  const [senin, setSenin] = useState(undefined);
+  const [selasa, setSelasa] = useState(undefined);
+  const [rabu, setRabu] = useState(undefined);
+  const [kamis, setKamis] = useState(undefined);
+  const [jumat, setJumat] = useState(undefined);
+  const [sabtu, setSabtu] = useState(undefined);
+  const [minggu, setMinggu] = useState(undefined);
   const [product, setProduct] = useState(undefined);
   const history = useHistory();
 
   useEffect(() => {
     // const user = AuthService.getCurrentUser();
-
-    // if (user) {
-    //   setCurrentUser(user);
-    //   // setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-    //   // setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    // }
-
-    // const data = async () => {
-    //   const response = await UserService.getProducts();
-    // };
     UserService.getProducts().then(
       (response) => {
         console.log(response.data[0].PictureUrl);
@@ -104,6 +102,51 @@ const Recipes = () => {
         console.log(error.response.data.code);
       }
     );
+    // if (user) {
+    //   setCurrentUser(user);
+    //   // setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
+    //   // setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    // }
+
+    // const data = async () => {
+    //   const response = await UserService.getProducts();
+    // };
+    UserService.getProductByDay("Senin").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setSenin(response.data);
+    });
+    UserService.getProductByDay("Selasa").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setSelasa(response.data);
+    });
+    UserService.getProductByDay("Rabu").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setRabu(response.data);
+    });
+    UserService.getProductByDay("Kamis").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setKamis(response.data);
+    });
+    UserService.getProductByDay("Jumat").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setJumat(response.data);
+    });
+    UserService.getProductByDay("Sabtu").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setSabtu(response.data);
+    });
+    UserService.getProductByDay("Minggu").then((response) => {
+      console.log("apa hayo hasilnya: ", response);
+      console.log(response.data ? "benar" : "tidak");
+      setMinggu(response.data);
+    });
+
     // if (data) {
     //   data().then((res) => console.log("kalau ini?", res));
     //   setProduct(data);
@@ -117,6 +160,11 @@ const Recipes = () => {
       str.substring(0, index) + stringToAdd + str.substring(index, str.length)
     );
   }
+  const orderFood = (id, price) => {
+    UserService.orderFood(id, price, 1).then((response) => {
+      console.log("coba", response);
+    });
+  };
   return (
     <div>
       {/* <Modal
@@ -195,47 +243,59 @@ const Recipes = () => {
                 </RecipeFeatureContent>
               </RecipeFeature> */}
               <RecipeCardSection>
-                <RecipeSmallCards>
-                  {product
-                    ? product.map((item, index) => {
-                        return (
-                          <RecipeCard>
-                            <Img
-                              src={addStr(item.PictureUrl)}
-                              alt="Chicken Recipe"
-                            />
-                            <RecipeCardContent>
-                              <RecipeCardHeading>
-                                {item.ProductName}
-                              </RecipeCardHeading>
-                              <RecipeCardDetails>
-                                <RecipeCardItems>
-                                  <RecipeCardTitle>Stock</RecipeCardTitle>
-                                  <RecipeCardItem>
-                                    <RecipeCardIcon />
+                <TestAja>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Senin</RecipeTitle>
+
+                    {senin
+                      ? senin.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
                                     <RecipeCardText>
-                                      {item.Stock}
+                                      {item.Price}
                                     </RecipeCardText>
-                                  </RecipeCardItem>
-                                </RecipeCardItems>
-                                <RecipeCardItems>
-                                  <RecipeCardTitle>Price</RecipeCardTitle>
-                                  <RecipeCardText>{item.Price}</RecipeCardText>
-                                </RecipeCardItems>
-                                {/* <RecipeCardItems>
-                                  <RecipeBtn onClick={openModal(item.ID)}>
-                                    <OutlineButton big bigFont bigRadius>
-                                      Order
-                                    </OutlineButton>
-                                  </RecipeBtn>
-                                </RecipeCardItems> */}
-                              </RecipeCardDetails>
-                            </RecipeCardContent>
-                          </RecipeCard>
-                        );
-                      })
-                    : "loading"}
-                  {/* <RecipeCard>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
                     <Img src={SaladImg} alt="Salad Recipe" />
                     <RecipeCardContent>
                       <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
@@ -258,8 +318,458 @@ const Recipes = () => {
                       </RecipeCardDetails>
                     </RecipeCardContent>
                   </RecipeCard> */}
-                </RecipeSmallCards>
-                {/* <RecipeSmallCards>
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Selasa</RecipeTitle>
+
+                    {selasa
+                      ? selasa.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Rabu</RecipeTitle>
+
+                    {rabu
+                      ? rabu.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Kamis</RecipeTitle>
+
+                    {kamis
+                      ? kamis.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Jumat</RecipeTitle>
+
+                    {jumat
+                      ? jumat.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Sabtu</RecipeTitle>
+
+                    {sabtu
+                      ? sabtu.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  <RecipeSmallCards>
+                    <RecipeTitle>Minggu</RecipeTitle>
+
+                    {minggu
+                      ? minggu.map((item, index) => {
+                          return (
+                            <RecipeCard>
+                              <Img
+                                src={addStr(item.PictureUrl)}
+                                alt="Chicken Recipe"
+                              />
+                              <RecipeCardContent>
+                                <RecipeCardHeading>
+                                  {item.ProductName}
+                                </RecipeCardHeading>
+                                <RecipeCardDetails>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Stock</RecipeCardTitle>
+                                    <RecipeCardItem>
+                                      <RecipeCardIcon />
+                                      <RecipeCardText>
+                                        {item.Stock}
+                                      </RecipeCardText>
+                                    </RecipeCardItem>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeCardTitle>Price</RecipeCardTitle>
+                                    <RecipeCardText>
+                                      {item.Price}
+                                    </RecipeCardText>
+                                  </RecipeCardItems>
+                                  <RecipeCardItems>
+                                    <RecipeBtn>
+                                      <OutlineButton
+                                        onClick={() =>
+                                          orderFood(item.ID, item.Price)
+                                        }
+                                        big
+                                        bigFont
+                                        bigRadius
+                                      >
+                                        Order
+                                      </OutlineButton>
+                                    </RecipeBtn>
+                                  </RecipeCardItems>
+                                </RecipeCardDetails>
+                              </RecipeCardContent>
+                            </RecipeCard>
+                          );
+                        })
+                      : "loading"}
+                    {/* <RecipeCard>
+                    <Img src={SaladImg} alt="Salad Recipe" />
+                    <RecipeCardContent>
+                      <RecipeCardHeading>Sesame Asian Salad</RecipeCardHeading>
+                      <RecipeCardDetails>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Serving</RecipeCardTitle>
+                          <RecipeCardItem>
+                            <RecipeCardIcon />
+                            <RecipeCardText>2</RecipeCardText>
+                          </RecipeCardItem>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Cook time</RecipeCardTitle>
+                          <RecipeCardText>10-15 min</RecipeCardText>
+                        </RecipeCardItems>
+                        <RecipeCardItems>
+                          <RecipeCardTitle>Difficulty level</RecipeCardTitle>
+                          <RecipeCardText>10%</RecipeCardText>
+                        </RecipeCardItems>
+                      </RecipeCardDetails>
+                    </RecipeCardContent>
+                  </RecipeCard> */}
+                  </RecipeSmallCards>
+                  {/* <RecipeSmallCards>
                   <RecipeCard>
                     <Img src={PizzaImg} alt="Pizza Recipe" />
                     <RecipeCardContent>
@@ -311,6 +821,7 @@ const Recipes = () => {
                     </RecipeCardContent>
                   </RecipeCard>
                 </RecipeSmallCards> */}
+                </TestAja>
               </RecipeCardSection>
             </RecipeCardWrapper>
           </RecipeContentContainer>

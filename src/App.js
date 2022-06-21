@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Hero, Footer } from "./components";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
+import YourCart from "./pages/YourCart/YourCart";
 import Login from "./pages/Login/Login";
 import Recipe from "./pages/Recipe/Recipe";
 import Order from "./pages/Order/Order";
@@ -39,6 +40,7 @@ function App() {
         <Route exact path="/order-now" exact component={Order} />
         <Route exact path="/menu" exact component={TodayMenu} />
         <Route exact path="/login" exact component={Login} />
+        <Route exact path="/your-cart" exact component={YourCart} />
       </Switch>
       <Footer />
     </Router>
