@@ -258,7 +258,7 @@ export const RecipeCard = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  width: 400px;
+  width: 425px;
   height: 120px;
   background: #ffffff;
   box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.15);

@@ -4,13 +4,13 @@ import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import YourCart from "./pages/YourCart/YourCart";
 import Login from "./pages/Login/Login";
+import Register from "./pages/Login/Register";
 import Recipe from "./pages/Recipe/Recipe";
 import Order from "./pages/Order/Order";
 import TodayMenu from "./pages/TodayMenu/TodayMenu";
 import GlobalStyles from "./Globalstyles";
 import AuthService from "./services/auth.service";
 import React, { useState, useEffect } from "react";
-
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
 
@@ -40,6 +40,7 @@ function App() {
         <Route exact path="/order-now" exact component={Order} />
         <Route exact path="/menu" exact component={TodayMenu} />
         <Route exact path="/login" exact component={Login} />
+        <Route exact path="/register" exact component={Register} />
         <Route exact path="/your-cart" exact component={YourCart} />
       </Switch>
       <Footer />
